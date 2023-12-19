@@ -6,6 +6,9 @@ import ProjectDataService from "../services/ProjectServices";
 import { storage } from "../firebase-config";
 import { ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
+import { useContext } from "react";
+import { userContext } from "../AppContext";
+// import {toast, Toaster} from 'react-hot-toast';
 export default function Upload_Project() {
   // All Image states
   const [img1, setImg1] = useState(null);
@@ -13,9 +16,12 @@ export default function Upload_Project() {
   const [img3, setImg3] = useState(null);
   const [url, setUrl] = useState("");
   const [formData, setFormData] = useState({});
-
+  const {user , setUser} = useContext(userContext);
+ 
   // Toaster
   const notify = () => toast.success("Operation Successful !");
+  const notifyImage = ()=>toast.success("Photos Uploaded successfuly !!");
+  const notifyErrorImage = () => toast.error(" !Photos Upploaded  successfuly")
   const notifyError = () => toast.error("Operation Failed !");
 
   function handleChange(e) {
@@ -33,12 +39,13 @@ export default function Upload_Project() {
         if(img1==null || img2==null || img3==null  ){
            alert("Upload the Images !!");
            return ;
-        }else if (formData.team_name==null ){
-             alert("Please first Submit the form ");
-             return ; 
         }
+        // else if (formData.email!==user.email){
+        //   console.log(formData.email , " "+user.email );
+        //      alert("Enter the valid Email ");
+        // }
         else{
-          const folder = formData.team_name;
+          const folder = user?.email;
            const img1Ref = ref(storage,`${folder}/${img1.name + v4()}`);
            const img2Ref = ref(storage,`${folder}/${img2.name + v4()}`);
            const img3Ref = ref(storage,`${folder}/${img3.name + v4()}`);
@@ -46,13 +53,14 @@ export default function Upload_Project() {
               await uploadBytes(img1Ref , img1);
               await uploadBytes(img2Ref , img2);
               await uploadBytes(img3Ref , img3);
+                notifyErrorImage();
               console.log("Images uploaded successfully ");
            } catch (error) {
+            notifyErrorImage();
                 console.log(error+"Not uploaded !!!");
            }
         }
    }
-
   useEffect(() => {
     // console.log(formData.team_name);
     console.log(formData);
@@ -84,6 +92,14 @@ export default function Upload_Project() {
               <div className="font-semibold font-serif bg-blue-500 text-white uppercase text-xl flex justify-center outline py-2 px-2 rounded-xl outline-slate-200">
                 Upload Your Project Here{" "}
               </div>
+              <input
+                className="border p-3 rounded-lg  placeholder-black placeholder-opacity-25 border-b border-gray-500 focus:outline-none w-full"
+                type="email"
+                id="UserId"
+                placeholder="Enter your logged in email"
+                onChange={handleChange}
+                required
+              />
               <input
                 className="border p-3 rounded-lg  placeholder-black placeholder-opacity-25 border-b border-gray-500 focus:outline-none w-full"
                 type="text"
@@ -120,6 +136,16 @@ export default function Upload_Project() {
                 <option value="Medical">Medical Sciences</option>
                 <option value="N/A">Others</option>
               </select>
+
+              <textarea
+                className="border p-3 rounded-lg resize-none  placeholder-black placeholder-opacity-25 border-b border-gray-500 focus:outline-none w-full"
+                name=""
+                id="abstract"
+                cols="5"
+                rows="5"
+                placeholder="Add Abstract of the Project "
+                onChange={handleChange}
+              ></textarea>
               <textarea
                 className="border p-3 rounded-lg resize-none  placeholder-black placeholder-opacity-25 border-b border-gray-500 focus:outline-none w-full"
                 name=""

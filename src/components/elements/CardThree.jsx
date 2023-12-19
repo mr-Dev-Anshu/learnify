@@ -24,13 +24,13 @@ const CardThree = () => {
           </HashLink>
         </div>
       </div>
-      <div className="h-fit w-[30%] p-4 shadow-xl rounded-xl mt-8 flex flex-col justify-left gap-8">
+      <div className="h-fit w-[30%] p-4 shadow-xl rounded-xl mt-8 flex flex-col justify-left gap-8 ">
         <div>
           <img className=" h-60 rounded-md" src={domain} alt="" />
         </div>
         <div className="flex flex-col h-full tracking-wide justify-center items-center">
           <p className="text-xl font-semibold font-serif text-slate-600">
-            Domain Specific Projects
+            Domain Specific
           </p>
           <p className="mt-2">See projects from each domain.</p>
           <HashLink to={"/explore"}>

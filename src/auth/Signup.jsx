@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../components/assets/logo.png";
 import { HashLink } from "react-router-hash-link";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, sendEmailVerification } from "firebase/auth";
 import { auth } from "../firebase-config";
 import { toast, Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { userContext } from "../AppContext";
+import { useContext } from "react";
 export default function Signup() {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
@@ -12,6 +14,16 @@ export default function Signup() {
   const [passMatch, setPassMach] = useState(false);
   const [passMessage, setPassMessage] = useState(false);
   const navigate = useNavigate();
+
+  const {user , setUser } = useContext(userContext);
+   
+      // useEffect(()=>{
+      //   if(user?.isVerified){
+      //        console.log("its verified ");
+      //   }else {
+      //       console.log ("this is not verified !!");
+      //   }
+      // })
   const notify = () => {
     toast.success("Sign-Up Successfully !");
   };
@@ -25,24 +37,28 @@ export default function Signup() {
     } else {
       setPassMach(false);
     }
-
     if (registerPassword.length < 6) {
       setPassMessage(true);
       return;
     } else {
       setPassMessage(false);
     }
-
     try {
-      const user = await createUserWithEmailAndPassword(
+      const userCredentioal  = await createUserWithEmailAndPassword(
         auth,
         registerEmail,
         registerPassword
       );
+      await sendEmailVerification(userCredentioal.user);
+     if(user?.emailVerified){
       notify();
       setTimeout(() => {
         navigate("/dashboard");
       }, 2000);
+     }else{
+       console.log(false);
+     }
+     
       console.log(user);
     } catch (error) {
       notifyError();

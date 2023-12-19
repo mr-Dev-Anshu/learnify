@@ -6,13 +6,14 @@ import { auth } from "../firebase-config";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-import {  userContext } from "../AppContext";
+import {  userContext, verifyContext } from "../AppContext";
 import {toast , Toaster} from 'react-hot-toast'
 const Header = () => {
   const { user, setUser } = useContext(userContext);
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
+  const {verify,setVerify} = useContext(verifyContext);
+  useEffect(()=>{
+      console.log (verify);
+  })
    const notify = () => {
        toast.success("Log-out Successful");
    }
@@ -34,7 +35,7 @@ const Header = () => {
           </HashLink>
         </div>
         <div className="flex justify-center  items-center gap-40">
-          {user?null:
+          {verify?null:
             <HashLink to={"/welcome"}>
               <button className=" h-10 w-32 font-semibold outline outline-2 rounded-xl outline-black text-black">
                 Log In
@@ -49,7 +50,7 @@ const Header = () => {
           </HashLink>
         </div>
         <div className="flex justify-center items-center gap-20">
-          {user ? (
+          {verify ? (
             <HashLink to={"/upload"}>
               <button className="h-10 w-32 bg-slate-800 font-bold tracking-wider text-white  text-sm rounded-xl flex items-center justify-center gap-2 outline-black hover:bg-blue-700 duration-100">
                 Upload
@@ -57,7 +58,7 @@ const Header = () => {
               </button>
             </HashLink>
           ) : null}
-          {user ? (
+          {verify ? (
             <Link>
               <button
                 onClick={logout}
@@ -69,7 +70,7 @@ const Header = () => {
               <Toaster/>
             </Link>
           ) : null}
-          {user ? (
+          {verify ? (
             <Link to={"/dashboard"}>
               <div class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
                 <span class="font-medium text-gray-600 dark:text-gray-300">

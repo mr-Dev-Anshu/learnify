@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import i1 from "./assets/home-illustration.svg";
 import Search from "./elements/Search";
 import ProjectCards from "./elements/ProjectCards";
@@ -6,7 +6,21 @@ import InfoCard from "./elements/InfoCard";
 import CardThree from "./elements/CardThree";
 import Upcoming from "./elements/Upcoming";
 import { HashLink } from "react-router-hash-link";
+import { useContext } from "react";
+import { userContext } from "../AppContext";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebase-config";
 const Home = () => {
+   const {user,setUser} = useContext(userContext);
+   onAuthStateChanged( auth,(curr)=>{
+    if(curr?.emailVerified){
+        console.log ("verified :true ");
+        setUser(curr);
+        console.log (user?.emailVerified);
+    }else {
+       console.log ("!verified");
+    }
+})
   return (
     <div className="pl-40 pr-40 ">
       <div className=" w-full pt-12 h-full flex justify-between">
