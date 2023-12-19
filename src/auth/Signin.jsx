@@ -29,7 +29,7 @@ const Signin = () => {
       console.log("Sign up successfully ::");
       notify();
       setTimeout(() => {
-        navigate("/dashboard");
+        navigate("/");
       }, 3000);
     } catch (error) {
       notifyError();

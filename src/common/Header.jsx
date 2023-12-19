@@ -6,25 +6,25 @@ import { auth } from "../firebase-config";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-import {  userContext, verifyContext } from "../AppContext";
-import {toast , Toaster} from 'react-hot-toast'
+import { userContext, verifyContext } from "../AppContext";
+import { toast, Toaster } from "react-hot-toast";
 const Header = () => {
   const { user, setUser } = useContext(userContext);
-  const {verify,setVerify} = useContext(verifyContext);
-  useEffect(()=>{
-      console.log (verify);
-  })
-   const notify = () => {
-       toast.success("Log-out Successful");
-   }
-  const logout =  async () => {
-       try {
-         await auth.signOut();
-         notify();
-         console.log("LogOut in SignIn page !!");
-       } catch (error) {
-        console.log("There is some error in the logOut !!");
-       }
+  const { verify, setVerify } = useContext(verifyContext);
+  useEffect(() => {
+    console.log(verify);
+  });
+  const notify = () => {
+    toast.success("Log-out Successful");
+  };
+  const logout = async () => {
+    try {
+      await auth.signOut();
+      notify();
+      console.log("LogOut in SignIn page !!");
+    } catch (error) {
+      console.log("There is some error in the logOut !!");
+    }
   };
   return (
     <>
@@ -35,13 +35,13 @@ const Header = () => {
           </HashLink>
         </div>
         <div className="flex justify-center  items-center gap-40">
-          {verify?null:
+          {verify ? null : (
             <HashLink to={"/welcome"}>
               <button className=" h-10 w-32 font-semibold outline outline-2 rounded-xl outline-black text-black">
                 Log In
               </button>{" "}
             </HashLink>
-          }
+          )}
           <HashLink to={"/mentor"}>
             <button className="h-10 w-36 bg-slate-800 font-bold tracking-wider text-white  text-sm rounded-xl flex items-center justify-center gap-2 outline-black hover:bg-red-700 duration-100">
               Find Mentor
@@ -67,14 +67,16 @@ const Header = () => {
               >
                 Log-Out
               </button>
-              <Toaster/>
+              <Toaster />
             </Link>
           ) : null}
           {verify ? (
             <Link to={"/dashboard"}>
-              <div class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+              <div class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-blue-100 rounded-full dark:bg-gray-600 shadow-xl shadow-slate-600">
                 <span class="font-medium text-gray-600 dark:text-gray-300">
-                  {(user?.email[0] + user?.email[1]).toUpperCase()}
+                  {user && user.email && user.email.length >= 2
+                    ? (user.email[0] + user.email[1]).toUpperCase()
+                    : "Guest"}
                 </span>
               </div>
             </Link>
@@ -82,7 +84,6 @@ const Header = () => {
         </div>
       </div>
       <div className=" w-full outline outline-1 outline-slate-200"></div>
-      
     </>
   );
 };

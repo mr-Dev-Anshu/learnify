@@ -14,9 +14,7 @@ export default function Signup() {
   const [passMatch, setPassMach] = useState(false);
   const [passMessage, setPassMessage] = useState(false);
   const navigate = useNavigate();
-
   const {user , setUser } = useContext(userContext);
-   
       // useEffect(()=>{
       //   if(user?.isVerified){
       //        console.log("its verified ");
@@ -50,16 +48,16 @@ export default function Signup() {
         registerPassword
       );
       await sendEmailVerification(userCredentioal.user);
-     if(user?.emailVerified){
-      notify();
-      setTimeout(() => {
-        navigate("/dashboard");
-      }, 2000);
-     }else{
-       console.log(false);
-     }
-     
-      console.log(user);
+    //  if(user?.emailVerified){
+    //   notify();
+    //   setTimeout(() => {
+    //     navigate("/dashboard");
+    //   }, 2000);
+    //  }else{
+    //    console.log(false);
+    //  }
+    //   console.log(user);
+    navigate("/SignUp_message");
     } catch (error) {
       notifyError();
     }

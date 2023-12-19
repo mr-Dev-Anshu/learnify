@@ -10,7 +10,7 @@ import Dashboard from "./Pages/Dashboard";
 import NewsPage from "./components/elements/NewsPage";
 import { userContext, verifyContext } from "./AppContext";
 import { onAuthStateChanged } from "firebase/auth";
-
+import SignUp_message from './auth/SignUp_message'
 import { auth } from "./firebase-config";
 // import { loadingContext } from "./AppContext";
 import AllProjectList from "./Pages/AllProjectList";
@@ -55,7 +55,7 @@ function App() {
               <Route path="/postproject" element = {<PostProjectPage/>}/>
               <Route path="/postprojectform" element = {<PostProjectForm/>}/>
               <Route path="/projectdisplay" element = {<ProjectDisplay/>}/>
-
+              <Route path="/SignUp_message" element={<SignUp_message/>}/>
             </Routes>
             <Footer />
           </Router>
