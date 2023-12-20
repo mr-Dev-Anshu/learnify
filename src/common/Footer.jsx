@@ -26,7 +26,7 @@ const Footer = () => {
 
        const[flag , setFlag ] = useState (false);
        useEffect(()=>{
-        if (user.email===adminEmail || user.email===adminEmail2){
+        if (user?.email===adminEmail || user?.email===adminEmail2){
           setFlag(true);
     }else {
        setFlag(false);
