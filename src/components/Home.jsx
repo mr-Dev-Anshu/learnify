@@ -38,7 +38,7 @@ const Home = () => {
               enthusiasts out there.
             </p>
             <div className="mt-16 flex flex-col w-full gap-8">
-              <div className="flex w-full gap-12">
+              {user?null:<div className="flex w-full gap-12">
                 <HashLink to={"/signin"}>
                   <button className="h-12 w-60 font-bold tracking-wider text-slate-600 outline outline-slate-500  text-lg rounded-xl flex items-center justify-center gap-2 hover:bg-blue-700 hover:text-white duration-100">
                     Login
@@ -49,13 +49,8 @@ const Home = () => {
                     Sign Up
                   </button>
                 </HashLink>
-              </div>
+              </div>}
               <div>
-                <HashLink to={"/mentor"}>
-                  <button className="h-12 w-full font-bold tracking-wider text-slate-600 outline text-lg rounded-xl flex items-center justify-center gap-2 outline-slate-500 hover:bg-blue-700 hover:text-white duration-100">
-                    Find a Mentor for your project !
-                  </button>
-                </HashLink>
               </div>
             </div>
           </div>

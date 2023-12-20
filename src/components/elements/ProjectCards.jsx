@@ -12,7 +12,7 @@ const ProjectCards = () => {
   return (
     <div className="mt-12 p-4 shadow-xl rounded-xl">
       <p className=" text-2xl font-bold font-serif text-slate-600">
-        Popular Projects
+        Available Projects
       </p>
       <div className=" flex flex-col w-full gap-12 p-4 mt-8">
         <div className="w-full flex justify-between">
@@ -27,7 +27,7 @@ const ProjectCards = () => {
               </div>
             </div>
           </HashLink>
-          <HashLink to={"/artificial"}>
+          <HashLink to={"/projectdisplay"}>
             <div className="h-56 w-56 outline rounded-md outline-slate-400 group relative">
               <img className="h-full object-cover" src={i2} alt="" />
               <div className="absolute h-full w-full rounded-md bg-black/30 flex justify-center items-center -bottom-10 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-200">
@@ -37,7 +37,7 @@ const ProjectCards = () => {
               </div>
             </div>
           </HashLink>
-          <HashLink to={"/civil"}>
+          <HashLink to={"/projectdisplay"}>
             <div className="h-56 w-56 outline rounded-md outline-slate-400 relative group ">
               <img className=" object-cover h-full" src={i3} alt="" />
               <div className="absolute h-full w-full flex items-center justify-center bg-black/30 -bottom-10 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-200">
@@ -47,7 +47,7 @@ const ProjectCards = () => {
               </div>
             </div>
           </HashLink>
-          <HashLink to={"/datascience"}>
+          <HashLink to={"/projectdisplay"}>
             <div className="h-56 w-56 outline rounded-md outline-slate-400 relative group  ">
               <img className="h-full object-cover" src={i4} alt="" />
               <div className="absolute h-full w-full rounded-md bg-black/30 flex justify-center items-center -bottom-10 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-200">
@@ -59,7 +59,7 @@ const ProjectCards = () => {
           </HashLink>
         </div>
         <div className=" w-full flex justify-between">
-          <HashLink to={"/mechanical"}>
+          <HashLink to={"/projectdisplay"}>
             <div className="h-56 w-56 outline rounded-md outline-slate-400 relative group ">
               <img className="h-full object-cover" src={i5} alt="" />
               <div className="absolute h-full w-full rounded-md bg-black/30 flex justify-center items-center -bottom-10 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-200">
@@ -69,7 +69,7 @@ const ProjectCards = () => {
               </div>
             </div>
           </HashLink>
-          <HashLink to={"/physics"}>
+          <HashLink to={"/projectdisplay"}>
             <div className="h-56 w-56 outline rounded-md outline-slate-400 relative group ">
               <img src={i6} alt="" />
               <div className="absolute h-full w-full rounded-md bg-black/30 flex justify-center items-center -bottom-10 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-200">
@@ -77,7 +77,7 @@ const ProjectCards = () => {
               </div>
             </div>
           </HashLink>
-          <HashLink to={"/chemistry"}>
+          <HashLink to={"/projectdisplay"}>
             <div className="h-56 w-56 outline rounded-md outline-slate-400 relative group ">
               <img src={i7} alt="" />
               <div className="absolute h-full w-full rounded-md bg-black/30 flex justify-center items-center -bottom-10 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-200">
@@ -85,7 +85,7 @@ const ProjectCards = () => {
               </div>
             </div>
           </HashLink>
-          <HashLink to={"/more"}>
+          <HashLink to={"/projectdisplay"}>
             <div className="h-56 w-56 outline rounded-md outline-slate-400 flex justify-center items-center relative group">
               <p className="font-bold text-2xl uppercase transition-all duration-300 group-hover:text-white z-20">
                 view more

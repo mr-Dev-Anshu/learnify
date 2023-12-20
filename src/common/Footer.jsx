@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 // import logo from "../";
 import logo from "../components/assets/logo.png"
 import { HashLink } from "react-router-hash-link";
@@ -9,8 +9,31 @@ import {
   TwitterIcon,
   YoutubeIcon,
 } from "lucide-react";
+import { userContext } from "../AppContext";
+import { Link } from "react-router-dom";
+// import {useRoutes}  from 'react-router-dom'
 
 const Footer = () => {
+  const {user , setUser } = useContext(userContext)
+    //  const {user , setUser} = useState({
+    //   name:"anshu
+    //  })
+    // const  dumy = useRoutes();
+    const adminEmail = "anshuies31@gmail.com";
+    const adminEmail2 = "sunitabnsl@gmail.com";
+      
+     
+
+       const[flag , setFlag ] = useState (false);
+       useEffect(()=>{
+        if (user.email===adminEmail || user.email===adminEmail2){
+          setFlag(true);
+    }else {
+       setFlag(false);
+    }
+       } , [user])
+
+
   return (
     <div className="w-full pr-40 pl-40 h-20  text-black flex flex-col justify-between mt-20">
       <div className="flex  justify-between ">
@@ -49,8 +72,9 @@ const Footer = () => {
               <HashLink>
                 <p>Careers</p>
               </HashLink>
+              {flag? <Link to={'/admin'}><button className="text-blue-600 font-bold " >Admin</button></Link>:null }
               <HashLink>
-                <p>Terms and conditions</p>
+                <p >Terms and conditions</p>
               </HashLink>
             </div>
           </div>

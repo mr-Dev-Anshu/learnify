@@ -8,26 +8,26 @@ import {
   getDocs,
   addDoc,
   doc,
-  getDoc,
  } from "firebase/firestore";
-const ProjectCollectionRef = collection(db, "Projects");
-class ProjectDataService {
-  addProject = (newProject) => {
-    return addDoc(ProjectCollectionRef, newProject);
+const ProjectCollectionRef = collection(db, "Ideas");
+class IdeaDataService {
+  addIdea = (newIdea) => {
+    return addDoc(ProjectCollectionRef, newIdea);
   };
-  getAllProjects = () => {
+  getAllIdeas = () => {
     return getDocs(ProjectCollectionRef);
   };
-  getProjectById = async (projectId) => {
+  getProjectIdea = async (userName) => {
     try {
-      const projectDocRef = doc(ProjectCollectionRef, projectId);
-      const projectSnapshot = await getDoc(projectDocRef);
-
+      const projectDocRef = doc(db, "Ideas", userName);
+      const projectSnapshot = await getDocs(projectDocRef);
       if (projectSnapshot.exists()) {
+        // Document exists, you can access its data
         const projectData = projectSnapshot.data();
         console.log("Project data:", projectData);
         return projectData;
       } else {
+        // Document does not exist
         console.log("Project not found");
         return null;
       }
@@ -37,4 +37,4 @@ class ProjectDataService {
     }
   };
 }
-export default new ProjectDataService();
+export default new IdeaDataService();

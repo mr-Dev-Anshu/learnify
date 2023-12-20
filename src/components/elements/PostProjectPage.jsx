@@ -1,8 +1,9 @@
-import React from "react";
+import React , {useEffect, useState} from "react";
 import PostProjectCard from "../chunks/PostProjectCard";
 import { HashLink } from "react-router-hash-link";
-
-const PostProjectPage = () => {
+import IdeaServices from "../../services/IdeaServices";
+const PostProjectPage =  () => {
+  
   return (
     <div className="pl-40 pr-40 flex flex-col gap-4">
       <div className="w-full mt-8">
@@ -13,16 +14,7 @@ const PostProjectPage = () => {
         </HashLink>
       </div>
       <PostProjectCard />
-      <PostProjectCard />
-      <PostProjectCard />
-      <PostProjectCard />
-      <PostProjectCard />
-      <PostProjectCard />
-      <PostProjectCard />
-      <PostProjectCard />
-      <PostProjectCard />
     </div>
   );
 };
-
 export default PostProjectPage;

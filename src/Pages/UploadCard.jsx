@@ -1,5 +1,5 @@
 import React from "react";
-import { useState  } from "react";
+import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
 import ProjectDataService from "../services/ProjectServices";
@@ -8,6 +8,7 @@ import { ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import { useContext } from "react";
 import { userContext } from "../AppContext";
+import ClipLoader from "react-spinners/ClipLoader";
 // import {toast, Toaster} from 'react-hot-toast';
 export default function Upload_Project() {
   // All Image states
@@ -16,12 +17,13 @@ export default function Upload_Project() {
   const [img3, setImg3] = useState(null);
   const [url, setUrl] = useState("");
   const [formData, setFormData] = useState({});
-  const {user , setUser} = useContext(userContext);
+  const { user, setUser } = useContext(userContext);
+  const [loading, setLoading] = useState();
  
   // Toaster
   const notify = () => toast.success("Operation Successful !");
-  const notifyImage = ()=>toast.success("Photos Uploaded successfuly !!");
-  const notifyErrorImage = () => toast.error(" !Photos Upploaded  successfuly")
+  const notifyImage = () => toast.success("Photos Uploaded successfuly !!");
+  const notifyErrorImage = () => toast.error(" !Photos Upploaded  successfuly");
   const notifyError = () => toast.error("Operation Failed !");
 
   function handleChange(e) {
@@ -35,45 +37,45 @@ export default function Upload_Project() {
   //         // console.log(formData.team_name);
   //         console.log(formData)
   // } , [formData.mentorEmail])
-   const uploadImage = async (e)=>{
-        if(img1==null || img2==null || img3==null  ){
-           alert("Upload the Images !!");
-           return ;
-        }
-        // else if (formData.email!==user.email){
-        //   console.log(formData.email , " "+user.email );
-        //      alert("Enter the valid Email ");
-        // }
-        else{
-          const folder = user?.email;
-           const img1Ref = ref(storage,`${folder}/${img1.name + v4()}`);
-           const img2Ref = ref(storage,`${folder}/${img2.name + v4()}`);
-           const img3Ref = ref(storage,`${folder}/${img3.name + v4()}`);
-           try {
-              await uploadBytes(img1Ref , img1);
-              await uploadBytes(img2Ref , img2);
-              await uploadBytes(img3Ref , img3);
-                notifyErrorImage();
-              console.log("Images uploaded successfully ");
-           } catch (error) {
-            notifyErrorImage();
-                console.log(error+"Not uploaded !!!");
-           }
-        }
-   }
+  const uploadImage = async (e) => {
+    if (img1 == null || img2 == null || img3 == null) {
+      alert("Upload the Images !!");
+      return;
+    }
+    // else if (formData.email!==user.email){
+    //   console.log(formData.email , " "+user.email );
+    //      alert("Enter the valid Email ");
+    // }
+    else {
+      const folder = user?.email;
+      const img1Ref = ref(storage, `${folder}/${img1.name + v4()}`);
+      const img2Ref = ref(storage, `${folder}/${img2.name + v4()}`);
+      const img3Ref = ref(storage, `${folder}/${img3.name + v4()}`);
+      try {
+        await uploadBytes(img1Ref, img1);
+        await uploadBytes(img2Ref, img2);
+        await uploadBytes(img3Ref, img3);
+        notifyErrorImage();
+        console.log("Images uploaded successfully ");
+      } catch (error) {
+        notifyErrorImage();
+        console.log(error + "Not uploaded !!!");
+      }
+    }
+  };
   useEffect(() => {
     // console.log(formData.team_name);
     console.log(formData);
   }, [formData.mentorEmail]);
-
- 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newRecord = formData;
     // console.log(newRecord);
     try {
+      setLoading(true);
       await ProjectDataService.addProject(newRecord);
+      setLoading(false);
       notify();
     } catch (e) {
       console.log("project  Didn't added !!!");
@@ -218,7 +220,18 @@ export default function Upload_Project() {
                 className="outline rounded-xl outline-slate-200 hover:bg-blue-700 hover:text-white uppercase font-bold text-slate-500 text-xl mb-6 transition-all duration-300 py-2 px-3 "
                 type="submit"
               >
-                Submit
+                {loading ? (
+                  <ClipLoader
+                    
+                    loading={loading}
+                  
+                    size={10}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                  />
+                ) : (
+                  <p>Submit</p>
+                )}
               </button>
               <Toaster />
             </div>
